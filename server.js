@@ -3,7 +3,7 @@ const fs = require("fs");
 const cors = require("cors");
 
 const app = express();
-const PORT = 80;
+const PORT = process.env.PORT || 80;
 const LOG_FILE = "tracked_domains.json";
 
 // Middleware to parse JSON requests and enable CORS
