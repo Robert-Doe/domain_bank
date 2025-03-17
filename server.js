@@ -48,7 +48,7 @@ app.post("/", (req, res) => {
     console.log(`Received domain: ${domain}`);
 
     // Save domain with timestamp
-    saveData({ domain, timestamp: new Date().toISOString() });
+   // saveData({ domain, timestamp: new Date().toISOString() });
 
     res.status(200).json({ message: "Domain logged successfully" });
 });
