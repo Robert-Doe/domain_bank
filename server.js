@@ -1,14 +1,17 @@
 const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const app = express();
 const PORT = process.env.PORT || 80;
 const LOG_FILE = "tracked_domains.json";
 
 // Middleware to parse JSON requests and enable CORS
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
+
 
 // Function to save tracked data
 function saveData(data) {
