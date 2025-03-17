@@ -10,8 +10,15 @@ const LOG_FILE = "tracked_domains.json";
 // Middleware to parse JSON requests and enable CORS
 app.use(bodyParser.json());
 app.use(express.json());
-app.use(cors());
+//app.use(cors());
 
+
+// Enable CORS for all origins (for development, you might want to restrict this later)
+app.use(cors({
+    origin: "*",  // For development purposes, you might want to change this
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"]
+}));
 
 // Function to save tracked data
 function saveData(data) {
