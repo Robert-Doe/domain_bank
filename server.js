@@ -31,7 +31,7 @@ function saveData(data) {
 }
 
 // API endpoint to receive tracking data
-app.post("/track", (req, res) => {
+app.post("/", (req, res) => {
     const { domain } = req.body;
 
     if (!domain) {
@@ -47,7 +47,7 @@ app.post("/track", (req, res) => {
 });
 
 // API endpoint to display all tracked domains
-app.get("/logs", (req, res) => {
+app.get("/", (req, res) => {
     if (fs.existsSync(LOG_FILE)) {
         const data = fs.readFileSync(LOG_FILE);
         return res.json(JSON.parse(data));
