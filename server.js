@@ -37,7 +37,20 @@ function saveData(data) {
     fs.writeFileSync(LOG_FILE, JSON.stringify(existingData, null, 2));
 }
 
-// API endpoint to receive tracking data
+// Enable CORS
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"]
+}));
+
+// Use JSON parser
+app.use(express.json());
+
+// In-memory storage (data will be lost if the server restarts)
+let trackedDomains = [];
+
+// API to receive tracking data
 app.post("/", (req, res) => {
     const { domain } = req.body;
 
@@ -47,20 +60,15 @@ app.post("/", (req, res) => {
 
     console.log(`Received domain: ${domain}`);
 
-    // Save domain with timestamp
-   // saveData({ domain, timestamp: new Date().toISOString() });
+    // Save domain with timestamp (temporary storage)
+    trackedDomains.push({ domain, timestamp: new Date().toISOString() });
 
     res.status(200).json({ message: "Domain logged successfully" });
 });
 
-// API endpoint to display all tracked domains
+// API to fetch logs
 app.get("/", (req, res) => {
-    if (fs.existsSync(LOG_FILE)) {
-        const data = fs.readFileSync(LOG_FILE);
-        return res.json(JSON.parse(data));
-    }
-
-    res.json([]);
+    res.json(trackedDomains);
 });
 
 // Start the server
